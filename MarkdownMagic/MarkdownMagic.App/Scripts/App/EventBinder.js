@@ -40,6 +40,8 @@
         var targetDirectory = $(e.currentTarget).attr('href');
         this.controller.navigate(targetDirectory);
 
+        $('[data-details]').empty();
+
     };
 
     EventBinder.prototype.details = function (e) {

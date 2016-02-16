@@ -119,6 +119,7 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <Content Include="Content\_markdown.scss" />
+    <Content Include="Content\_reset.scss" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="index.html" />
     <Content Include="Scripts\App\NavigationRenderer.js" />

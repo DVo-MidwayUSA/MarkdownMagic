@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.SignalR;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 
 namespace MarkdownMagic.App.Hubs
 {
@@ -61,8 +62,8 @@ namespace MarkdownMagic.App.Hubs
         private void RenderAll(string currentDirectory)
         {
             var directoryInfo = new DirectoryInfo(currentDirectory);
-            this.Clients.Caller.renderDirectories(directoryInfo.EnumerateDirectories(), this.ParentInfo(directoryInfo));
-            this.Clients.Caller.renderFiles(directoryInfo.EnumerateFiles(), this.ParentInfo(directoryInfo));
+            this.Clients.Caller.renderDirectories(directoryInfo.EnumerateDirectories().OrderByDescending(x => x.Name), this.ParentInfo(directoryInfo));
+            this.Clients.Caller.renderFiles(directoryInfo.EnumerateFiles().OrderByDescending(x => x.Name), this.ParentInfo(directoryInfo));
         }
 
         private DirectoryInfo ParentInfo(DirectoryInfo directoryInfo)

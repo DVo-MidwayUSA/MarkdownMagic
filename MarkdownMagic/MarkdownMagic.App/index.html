@@ -8,18 +8,24 @@
 </head>
 <body>
 
-    <nav>
+    <nav class="navigation">
         <a data-parent-link class="parent-link"></a>
-        <ul data-collection="directories">
-            <li>
-                <ul data-collection="files">
-
-                </ul>
-            </li>
-        </ul>
+        <ul data-collection="directories"></ul>
+        <ul data-collection="files"></ul>
     </nav>
 
-    <section data-details class="markdown-body"></section>
+    <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+    <label for="nav-trigger">Menu</label>
+
+    <div class="wrapper">
+
+        <header>
+            <h1>Markdown Magic</h1>
+        </header>
+
+        <section data-details class="markdown-body"></section>
+
+    </div>
 
     <script src="Scripts/jquery-1.6.4.min.js"></script>
     <script src="Scripts/jquery.signalR-2.2.0.min.js"></script>
