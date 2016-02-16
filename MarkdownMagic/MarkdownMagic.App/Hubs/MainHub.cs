@@ -1,11 +1,17 @@
 ﻿using Microsoft.AspNet.SignalR;
+using System.Configuration;
 using System.IO;
 
 namespace MarkdownMagic.App.Hubs
 {
     public class MainHub : Hub
     {
-        private const string RootDirectory = @"C:\Users\Daniel\Documents\GitHub\MarkdownMagic\MarkdownMagic\MarkdownMagic.Markdown";
+        private readonly string rootDirectory;
+
+        public MainHub()
+        {
+            this.rootDirectory = ConfigurationManager.AppSettings["RootDirectory"];
+        }
 
         public void Init()
         {
@@ -13,16 +19,24 @@ namespace MarkdownMagic.App.Hubs
             this.RenderAll();
         }
 
-        public void Get(string currentDirectory)
+        public void Navigate(string currentDirectory)
         {
             this.RenderAll(currentDirectory);
+        }
+
+        public void Read(string filePath)
+        {
+            using (var streamReader = new StreamReader(filePath))
+            {
+                this.Clients.Caller.renderDetails(streamReader.ReadToEnd());
+            }
         }
 
         private void WatchFileSystem()
         {
             var watcher = new FileSystemWatcher();
 
-            watcher.Path = RootDirectory;
+            watcher.Path = this.rootDirectory;
 
             watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
 
@@ -39,26 +53,21 @@ namespace MarkdownMagic.App.Hubs
             this.RenderAll();
         }
 
-        private void RenderAll(string currentDirectory = RootDirectory)
+        private void RenderAll()
         {
-            var directoryInfo = new DirectoryInfo(currentDirectory);
-
-            Clients.Caller.renderDirectories(directoryInfo.EnumerateDirectories());
-            Clients.Caller.renderFiles(directoryInfo.EnumerateFiles());
-
-            this.RenderParent(directoryInfo);
+            this.RenderAll(this.rootDirectory);
         }
 
-        private void RenderParent(DirectoryInfo directoryInfo)
+        private void RenderAll(string currentDirectory)
         {
-            var path = directoryInfo.FullName;
+            var directoryInfo = new DirectoryInfo(currentDirectory);
+            this.Clients.Caller.renderDirectories(directoryInfo.EnumerateDirectories(), this.ParentInfo(directoryInfo));
+            this.Clients.Caller.renderFiles(directoryInfo.EnumerateFiles(), this.ParentInfo(directoryInfo));
+        }
 
-            if (path == RootDirectory)
-            {
-                return;
-            }
-
-            Clients.Caller.renderParent(directoryInfo.Parent);
+        private DirectoryInfo ParentInfo(DirectoryInfo directoryInfo)
+        {
+            return directoryInfo.FullName != this.rootDirectory ? directoryInfo.Parent : null;
         }
     }
 }

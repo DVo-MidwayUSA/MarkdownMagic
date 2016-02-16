@@ -118,17 +118,20 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="Content\_markdown.scss" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="index.html" />
-    <Content Include="Scripts\App\MarkdownMagic.js" />
-    <Content Include="Scripts\App\Renderer.js" />
-    <Content Include="Scripts\jasmine-html.js" />
-    <Content Include="Scripts\jasmine.js" />
+    <Content Include="Scripts\App\NavigationRenderer.js" />
+    <Content Include="Scripts\App\Controller.js" />
+    <Content Include="Scripts\App\DetailsRenderer.js" />
+    <Content Include="Scripts\App\EventBinder.js" />
     <Content Include="Scripts\jquery-1.6.4.js" />
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\marked.js" />
+    <Content Include="Scripts\marked.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

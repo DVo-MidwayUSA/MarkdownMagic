@@ -8,33 +8,40 @@
 </head>
 <body>
 
-    <div>
-        <ul data-collection="directory">
+    <nav>
+        <a data-parent-link class="parent-link"></a>
+        <ul data-collection="directories">
             <li>
-                <ul data-collection="file">
+                <ul data-collection="files">
 
                 </ul>
             </li>
         </ul>
-    </div>
+    </nav>
+
+    <section data-details class="markdown-body"></section>
 
     <script src="Scripts/jquery-1.6.4.min.js"></script>
     <script src="Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="Scripts/marked.min.js"></script>
+
     <script src="SignalR/Hubs"></script>
 
-    <script src="Scripts/App/MarkdownMagic.js"></script>
-    <script src="Scripts/App/Renderer.js"></script>
+    <script src="Scripts/App/Controller.js"></script>
+    <script src="Scripts/App/DetailsRenderer.js"></script>
+    <script src="Scripts/App/EventBinder.js"></script>
+    <script src="Scripts/App/NavigationRenderer.js"></script>
 
     <script>
 
-        $(function () {
+        (function ($) {
 
             'use strict';
 
-            var app = new MarkdownMagic();
-            app.start();
+            var controller = new Controller();
+            controller.start();
 
-        });
+        })(jQuery);
 
     </script>
 

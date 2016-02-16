@@ -1,2 +1,7 @@
-﻿body {
+﻿@import '_markdown.scss';
+
+body {
+    .selected {
+        color: red;
+    }
 }
