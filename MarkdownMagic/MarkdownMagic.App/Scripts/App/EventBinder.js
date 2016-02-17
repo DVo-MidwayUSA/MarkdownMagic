@@ -14,7 +14,7 @@
 
     EventBinder.prototype.bindDirectoryLinks = function () {
 
-        $('[data-collection="directories"] li > a')
+        $('[data-collection="directories"] a')
             .live('click', (e) => this.navigate(e));
 
     };
@@ -28,7 +28,7 @@
 
     EventBinder.prototype.bindFileLinks = function () {
 
-        $('[data-collection="files"] li > a')
+        $('[data-collection="files"] a')
             .live('click', (e) => this.details(e));
 
     };
@@ -57,11 +57,17 @@
 
     };
 
+    EventBinder.prototype.closeNavigation = function () {
+
+        $('[data-nav-trigger]').attr('checked', false);
+
+    };
+
     EventBinder.toggleSelection = function ($currentTarget) {
 
         $currentTarget.addClass('selected');
 
-        $('[data-collection="files"] li > a')
+        $('[data-collection="files"] li a')
             .not($currentTarget)
             .removeClass('selected');
 

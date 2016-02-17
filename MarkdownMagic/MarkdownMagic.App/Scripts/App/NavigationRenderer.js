@@ -18,9 +18,6 @@
             (item) => { this.$el.prepend(NavigationRenderer.buildCollectionItemLink(item)); });
 
         this.buildParentLink();
-
-        $('[data-details]').empty();
-
     };
 
     NavigationRenderer.prototype.buildParentLink = function () {
@@ -42,7 +39,7 @@
 
     NavigationRenderer.buildCollectionItemLink = function (item) {
 
-        var formattedOriginalPath = item.OriginalPath.replace(/.md/gi, '');
+        var formattedOriginalPath = item.OriginalPath.replace(/.md|.txt/gi, '');
         return `<li data-collection-item><a href="${item.FullPath}">${formattedOriginalPath}</a></li>`;
 
     };

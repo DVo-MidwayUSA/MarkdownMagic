@@ -2,21 +2,27 @@
 
     'use strict';
 
-    function DetailsRenderer(contents) {
+    function DetailsRenderer() {
 
-        this.contents = contents;
+        this.$el = $('[data-details]');
 
     }
 
-    DetailsRenderer.prototype.render = function () {
+    DetailsRenderer.prototype.render = function (contents) {
 
-        $('[data-details]').html(this.translate());
+        this.$el.html(DetailsRenderer.translate(contents));
 
     };
 
-    DetailsRenderer.prototype.translate = function () {
+    DetailsRenderer.prototype.reset = function () {
 
-        return marked(this.contents, { gfm: true });
+        this.$el.html(DetailsRenderer.translate(`*Choose a file to view it's contents...*`));
+
+    };
+
+    DetailsRenderer.translate = function (contents) {
+
+        return marked(contents, { gfm: true });
 
     };
 

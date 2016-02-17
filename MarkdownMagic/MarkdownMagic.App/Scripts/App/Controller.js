@@ -10,7 +10,8 @@
         this.hub.client.renderFiles = (files, parent) => this.renderFiles(files, parent);
         this.hub.client.renderDetails = (contents) => this.renderDetails(contents);
 
-        var eventBinder = new EventBinder(this);
+        this.eventBinder = new EventBinder(this);
+        this.detailsRenderer = new DetailsRenderer();
     }
 
     Controller.prototype.start = function () {
@@ -24,6 +25,7 @@
 
         var renderer = new NavigationRenderer('directories', directories, parent);
         renderer.render();
+        this.detailsRenderer.reset();
 
     };
 
@@ -31,13 +33,14 @@
 
         var renderer = new NavigationRenderer('files', files, parent);
         renderer.render();
+        this.detailsRenderer.reset();
 
     };
 
     Controller.prototype.renderDetails = function (contents) {
 
-        var renderer = new DetailsRenderer(contents);
-        renderer.render();
+        this.detailsRenderer.render(contents);
+        this.eventBinder.closeNavigation();
 
     };
 
